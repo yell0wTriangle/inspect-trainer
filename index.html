@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Inspection Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #1f2937;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        p {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .highlight-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #6366f1;
+        }
+
+        .special-text {
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            color: #059669;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CSS Inspector Challenge</h1>
+            <p class="subtitle">Practice your Chrome DevTools skills!</p>
+        </header>
+
+        <div class="card">
+            <h2>Welcome, Future CSS Masters!</h2>
+            <p>This page contains various CSS properties for you to discover using Chrome DevTools. Try to find:</p>
+            <ul class="feature-list">
+                <li>Different font families used</li>
+                <li>Color values (in different formats)</li>
+                <li>Padding and margin measurements</li>
+                <li>Background gradient values</li>
+                <li>Border radius properties</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Special Elements</h2>
+            <p>Here's a highlighted box with unique properties:</p>
+            <div class="highlight-box">
+                <p>Can you find what makes this box special? Check its border and background!</p>
+            </div>
+            <p class="special-text">This text has unique styling. What font family and color is it using?</p>
+            <a href="#" class="button">Inspect this button!</a>
+        </div>
+
+        <div class="card">
+            <h2>CSS Challenge</h2>
+            <p>Try to answer these questions using DevTools:</p>
+            <ul class="feature-list">
+                <li>What's the exact gradient used in the header?</li>
+                <li>How much padding is applied to the cards?</li>
+                <li>What's the hover color of the button?</li>
+                <li>What makes the arrow appear before each list item?</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Created for learning Chrome DevTools and CSS inspection</p>
+        </footer>
+    </div>
+</body>
+</html>
