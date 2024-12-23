@@ -81,6 +81,8 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
         }
 
         .button:hover {
@@ -118,6 +120,69 @@
             color: #6b7280;
             font-size: 0.875rem;
         }
+
+        /* New Q&A Styles */
+        .question {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        .question input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .feedback.incorrect {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f59e0b;
+            animation: confetti 1s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -150,19 +215,97 @@
         </div>
 
         <div class="card">
-            <h2>CSS Challenge</h2>
-            <p>Try to answer these questions using DevTools:</p>
-            <ul class="feature-list">
-                <li>What's the exact gradient used in the header?</li>
-                <li>How much padding is applied to the cards?</li>
-                <li>What's the hover color of the button?</li>
-                <li>What makes the arrow appear before each list item?</li>
-            </ul>
+            <h2>Quiz Time!</h2>
+            <p class="score">Your Score: <span id="score">0</span> correct answers</p>
+            
+            <div id="questions">
+                <div class="question">
+                    <p>What's the exact gradient used in the header?</p>
+                    <input type="text" placeholder="Enter your answer (e.g., linear-gradient(...))" data-answer="linear-gradient(135deg, #6366f1, #8b5cf6)">
+                    <button class="button" onclick="checkAnswer(this)">Submit</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <p>What's the padding value of the cards?</p>
+                    <input type="text" placeholder="Enter the padding value (e.g., 1rem)" data-answer="2rem">
+                    <button class="button" onclick="checkAnswer(this)">Submit</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <p>What's the hover background color of the button?</p>
+                    <input type="text" placeholder="Enter the color (hex or name)" data-answer="#1d4ed8">
+                    <button class="button" onclick="checkAnswer(this)">Submit</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <p>What font family is used for the special text?</p>
+                    <input type="text" placeholder="Enter the font family" data-answer="Georgia">
+                    <button class="button" onclick="checkAnswer(this)">Submit</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
         </div>
 
         <footer>
             <p>Created for learning Chrome DevTools and CSS inspection</p>
         </footer>
     </div>
+
+    <script>
+        let score = 0;
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 50%)`;
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        function checkAnswer(button) {
+            const questionDiv = button.closest('.question');
+            const input = questionDiv.querySelector('input');
+            const feedback = questionDiv.querySelector('.feedback');
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.dataset.answer.toLowerCase();
+
+            feedback.style.display = 'block';
+
+            if (userAnswer === correctAnswer) {
+                feedback.textContent = '🎉 Correct! Well done!';
+                feedback.className = 'feedback correct';
+                if (!input.disabled) {
+                    score++;
+                    document.getElementById('score').textContent = score;
+                    createConfetti();
+                }
+                input.disabled = true;
+                button.disabled = true;
+            } else {
+                feedback.textContent = '❌ Try again! Inspect the element carefully.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        // Allow Enter key to submit answers
+        document.querySelectorAll('.question input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.closest('.question').querySelector('.button').click();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
